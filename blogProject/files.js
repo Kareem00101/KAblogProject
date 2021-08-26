@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-/* // to read
+// to read
 fs.readFile('./docs/blogOne.txt',(err, data)=>{
     if (err){
         console.log(err);
@@ -40,4 +40,4 @@ if(fs.existsSync('./docs/deleteme.txt')){
         }
         console.log('file deleted');
     })
-} */
+}
