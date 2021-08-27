@@ -1,0 +1,23 @@
+{
+  "name": "kablogproject",
+  "version": "1.0.0",
+  "description": "task1-fullstack-training",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kareem00101/KAblogProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kareem00101/KAblogProject/issues"
+  },
+  "homepage": "https://github.com/Kareem00101/KAblogProject#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "lodash": "^4.17.21"
+  }
+}
