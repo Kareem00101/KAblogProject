@@ -24,10 +24,18 @@ const server = http.createServer((request,response)=>{
     let path = './pages/';
     switch(request.url){
         case '/': path += 'html1.html';
+        response.statusCode = 200;
         break;
         case '/about': path += 'about.html';
+        response.statusCode = 200;
+        break;
+        case '/about-ka':
+        response.statusCode = 301;
+        response.setHeader('Location', '/about');
+        response.end();
         break;
         default: path+= '404.html';
+        response.statusCode = 404;
         break;
     }
     myFileSystem.readFile(path, (err, data)=>{
