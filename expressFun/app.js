@@ -3,6 +3,9 @@ const express = require('express');
 //express app
 const app = express();
 
+// starting view engine
+app.set('view engine', 'ejs');
+app.set('views', 'pages')
 //to listen using express
 app.listen(3000);
 app.get('/',(request, response) =>{
