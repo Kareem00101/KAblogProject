@@ -9,18 +9,18 @@ const app = express();
 //creating database
 const mongoDB = 'mongodb+srv://user0:user1234@cluster0.krvgo.mongodb.net/DBone?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser:true, useUnifiedTopology:true}).then((result)=>
-app.listen(3002)/*console.log('made connection to the database!')*/).catch((error)=>console.log(error));
+app.listen(3100)/*console.log('made connection to the database!')*/).catch((error)=>console.log(error));
 //second argument was used above for deprecationWarning.
 // starting view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
 //to listen using express
 //app.listen(3001);
-
+/*
 //database routes
 app.get('/add-blog',(request, response)=>{
     const blog = new Blog({
-        title: 'a new blog',
+        title: 'the second blog',
         snippet: 'lets see my new blog',
         body:'useless new blog xd'
     }); // asynchronous method takes time.
@@ -30,9 +30,29 @@ app.get('/add-blog',(request, response)=>{
     })
     .catch((error)=>{
         console.log(error);
+    });
+});
+// to get all the blogs
+app.get('/all-blogs',(request, response)=>{
+    Blog.find()
+    .then((results)=>{
+        response.send(results);
     })
-})
-
+    .catch((error) =>{
+        console.log(error);
+    });
+});
+// to get one single blog
+app.get('/aBlog',(request, response)=>{
+    Blog.findById('612a3a9f2b3110af9cfec839')
+    .then((results)=>{
+        response.send(results);
+    })
+    .catch((error)=>{
+        console.log(error)
+    });
+});
+*/
 //Example for middleware
 app.use((request,response, next)=>{
     console.log('server received a request');
@@ -50,13 +70,15 @@ app.use(express.static('public-static'));
 
 //homepage, request
 app.get('/',(request, response) =>{
-    const blogs = [
+    response.redirect('/blogs')
+    /*const blogs = [
         {title: 'my bird is singing', snippet: 'caged little bird'},
         {title: 'my dog is barking', snippet: 'the loyal hero'},
         {title: 'my cat is eating', snippet: 'cats eat alot'},
       ];
     //response.sendFile('./pages/html1.html', {root: __dirname})
     response.render('index',{title: 'Homepage', blogs});
+    */
 });
 
 app.get('/about',(request, response) =>{
@@ -69,6 +91,16 @@ app.get('/about-us',(request, response)=>{
     response.redirect('/about',{title:'About page'});
 });
 
+// here will be the blog routes
+app.get('/blogs',(request,response)=>{
+    Blog.find().sort({createdAt: -1})
+    .then((results)=>{
+        response.render('index',{title:'All of our Blogs', blogs: results})
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+})
 app.get('/create',(request, response)=>{
     response.render('create', {title:'create new blogs here'});
 });
