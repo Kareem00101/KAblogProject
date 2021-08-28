@@ -1,13 +1,31 @@
 const express = require('express');
-let ejs = require('ejs');
+const ejs = require('ejs');
+const morgan = require('morgan');
 //express app
 const app = express();
 
 // starting view engine
 app.set('view engine', 'ejs');
-app.set('views', './views')
+app.set('views', './views');
 //to listen using express
 app.listen(3001);
+
+//Example for middleware
+app.use((request,response, next)=>{
+    console.log('server received a request');
+    console.log('the host: ', request.hostname);
+    console.log('the path: ', request.path);
+    console.log('method used: ', request.method);
+    next(); //next is used, to tell the program to move on to the next middleware
+});
+
+//Example for the use of morgan middleware
+app.use(morgan('dev'));
+
+//Example for use of static files/middleware
+app.use(express.static('public-static'));
+
+//homepage, request
 app.get('/',(request, response) =>{
     const blogs = [
         {title: 'my bird is singing', snippet: 'caged little bird'},
@@ -17,6 +35,7 @@ app.get('/',(request, response) =>{
     //response.sendFile('./pages/html1.html', {root: __dirname})
     response.render('index',{title: 'Homepage', blogs});
 });
+
 app.get('/about',(request, response) =>{
     //response.sendFile('./pages/about.html', {root: __dirname})
     response.render('about', {title:'About page'});
