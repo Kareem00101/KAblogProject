@@ -1,14 +1,37 @@
 const express = require('express');
 const ejs = require('ejs');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+const Blog = require('./DBmodels/blog');
 //express app
 const app = express();
 
+//creating database
+const mongoDB = 'mongodb+srv://user0:user1234@cluster0.krvgo.mongodb.net/DBone?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, {useNewUrlParser:true, useUnifiedTopology:true}).then((result)=>
+app.listen(3002)/*console.log('made connection to the database!')*/).catch((error)=>console.log(error));
+//second argument was used above for deprecationWarning.
 // starting view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
 //to listen using express
-app.listen(3001);
+//app.listen(3001);
+
+//database routes
+app.get('/add-blog',(request, response)=>{
+    const blog = new Blog({
+        title: 'a new blog',
+        snippet: 'lets see my new blog',
+        body:'useless new blog xd'
+    }); // asynchronous method takes time.
+    blog.save()
+    .then((result)=>{
+        response.send(result);
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+})
 
 //Example for middleware
 app.use((request,response, next)=>{
