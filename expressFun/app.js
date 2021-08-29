@@ -125,6 +125,18 @@ app.post('/blogs',(request, response)=>{
         console.log(error);
     });
 });
+
+//for handling route para:meters
+app.get('/blogs/:id',(request, response)=>{
+    const blogID = request.params.id;
+    Blog.findById(blogID)
+    .then(results=>{
+        response.render('blogBody', {blog: results, title:'Whole Blog'});
+    })
+    .catch(error=>{
+        console.log(error);
+    });
+});
 // for 404 errors
 app.use((request, response)=>{
     //response.status(404).sendFile('./pages/404.html', {root:__dirname})
