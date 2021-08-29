@@ -142,7 +142,7 @@ app.delete('/blogs/:id',(request,response)=>{
     const blogID = request.params.id;
     Blog.findByIdAndDelete(blogID)
     .then(results=>{
-        response.json({redirect: '/blogs'})
+        response.json({ RED: '/blogs' })
     })
     .catch(error=>{
         console.log(error);
