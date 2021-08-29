@@ -137,6 +137,18 @@ app.get('/blogs/:id',(request, response)=>{
         console.log(error);
     });
 });
+// for handling delete requests
+app.delete('/blogs/:id',(request,response)=>{
+    const blogID = request.params.id;
+    Blog.findByIdAndDelete(blogID)
+    .then(results=>{
+        response.json({redirect: '/blogs'})
+    })
+    .catch(error=>{
+        console.log(error);
+    });
+});
+
 // for 404 errors
 app.use((request, response)=>{
     //response.status(404).sendFile('./pages/404.html', {root:__dirname})

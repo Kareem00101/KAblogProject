@@ -1,8 +1,8 @@
-<html>
+<html lang = "en">
     <%- include("./partials/head.ejs")%>
     <body>
         <%- include("./partials/nav.ejs")%>
-        <div class = "blog body">
+        <div class = "blogBody">
             <h1><%= blog.title %></h1>
             <div class = "body">
                 <p><%= blog.body %></p>
@@ -10,5 +10,17 @@
             <a class = "delete" data-doc="<%=blog._id%>">delete</a>
         </div>
         <%- include("./partials/footer.ejs")%>
+        <script>
+            const trashcan = document.querySelector('a.delete');
+            trashcan.addEventListener('click', (e)=>{
+                const endpoint = `/blogs/${trashcan.dataset.doc}`;
+                
+                fetch(endpoint, {
+                    method:'DELETE'})
+                .then((response)=> response.json())
+                .then((data)=> console.log(data))
+                .catch((error)=>console.log(error));
+            })
+         </script>
     </body>
 </html>
