@@ -62,11 +62,14 @@ app.use((request,response, next)=>{
     next(); //next is used, to tell the program to move on to the next middleware
 });
 
-//Example for the use of morgan middleware
-app.use(morgan('dev'));
+
 
 //Example for use of static files/middleware
 app.use(express.static('public-static'));
+app.use(express.urlencoded({extended: true})); //for request.body
+
+//Example for the use of morgan middleware
+app.use(morgan('dev'));
 
 //homepage, request
 app.get('/',(request, response) =>{
@@ -109,7 +112,19 @@ app.get('/create',(request, response)=>{
 app.get('/test',(request, response)=>{
     response.render('test');
 });
-
+// post requests
+app.post('/blogs',(request, response)=>{
+    //because of the middleware url one.
+    const blog = new Blog(request.body) //similar objects
+    //save to database.
+    blog.save()
+    .then((results)=>{
+        response.redirect('/blogs');
+    })
+    .catch((error)=>{
+        console.log(error);
+    });
+});
 // for 404 errors
 app.use((request, response)=>{
     //response.status(404).sendFile('./pages/404.html', {root:__dirname})
