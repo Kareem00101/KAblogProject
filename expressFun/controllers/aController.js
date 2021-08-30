@@ -11,16 +11,18 @@ const options = {
   }
 };
 
+
 // the functions
 const axios_index = (request, response, next) =>{
-    
-    axios.request(options).then(function (response) {
-        console.log(response.data);
+    let aData;
+    axios.request(options).then(function (res) {
+        console.log(res.data);
+        aData = res.data;
+        response.render('axios/index',{title:'API content', data: aData.content});
     }).catch(function (error) {
         console.error(error);
     });
-
-    response.render('axios/index',{title:'API content'});
+    //response.render('axios/index',{title:'API content', data: aData});
 }
 
 // exports
