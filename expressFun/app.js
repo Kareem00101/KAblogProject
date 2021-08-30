@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const bRoutes = require('./routes/blogR');
+const aRoutes = require('./routes/axiosR');
 const app = express();
 
 //creating database
@@ -49,6 +50,8 @@ app.get('/about-us',(request, response)=>{
 // to use the blog routes
 app.use('/blogs', bRoutes);
 
+// to use the axios routes
+app.use('/axios', aRoutes)
 // for 404 errors
 app.use((request, response)=>{
     response.render('404', {title:'404'});
