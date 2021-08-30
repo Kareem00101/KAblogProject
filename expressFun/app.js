@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 const bRoutes = require('./routes/blogR');
 const aRoutes = require('./routes/axiosR');
 const app = express();
-
+app.set('port', process.env.PORT || 3000);
 //creating database
 const mongoDB = 'mongodb+srv://user0:user1234@cluster0.krvgo.mongodb.net/DBone?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser:true, useUnifiedTopology:true}).then((result)=>
-app.listen(3100)/*console.log('made connection to the database!')*/).catch((error)=>console.log(error));
+app.listen(3000)/*console.log('made connection to the database!')*/).catch((error)=>console.log(error));
 //second argument was used above for deprecationWarning.
 // starting view engine
 app.set('view engine', 'ejs');
