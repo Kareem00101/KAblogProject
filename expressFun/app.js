@@ -51,7 +51,7 @@ app.get('/about-us',(request, response)=>{
 app.use('/blogs', bRoutes);
 
 // to use the axios routes
-app.use('/axios', aRoutes)
+app.use('/dailyQuote', aRoutes)
 // for 404 errors
 app.use((request, response)=>{
     response.render('404', {title:'404'});
