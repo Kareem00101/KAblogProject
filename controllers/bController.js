@@ -9,6 +9,7 @@ const blog_index = (request, response) =>{
         response.render('blogs/index',{title:'All of our Blogs', blogs: results})
     })
     .catch((error)=>{
+        response.render('404', {title:'Blog not found'});
         console.log(error);
     });
 };
@@ -18,7 +19,7 @@ const blog_content = (request, response) =>{
     const blogID = request.params.id;
     Blog.findById(blogID)
     .then(results=>{
-        response.status(404).render('blogs/blogBody', {blog: results, title:'Whole Blog'});
+        response.render('blogs/blogBody', {blog: results, title:'Whole Blog'});
     })
     .catch(error=>{
         response.render('404', {title:'Blog not found'});
